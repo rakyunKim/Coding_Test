@@ -6,12 +6,15 @@ import java.util.List;
 public class CoachesMenuManager {
 	Input input;
 	Output output;
+	MakeCategory makeCategory;
 	static List<String> coaches;
 	static List<String> inedibleFood;
-	RecommendMenu recommendMenu;
+	List<CoachMenus> menus;
 	public CoachesMenuManager(){
 		input = new Input();
 		output = new Output();
+		makeCategory = new MakeCategory();
+		menus = new ArrayList<>();
 	}
 	public void startRecommendMenu(){
 		while (true){
@@ -39,7 +42,13 @@ public class CoachesMenuManager {
 		}
 	}
 	public void setRecommendMenu(){
+		for (int i = 0; i < coaches.size(); i++){
+			menus.add(new CoachMenus(coaches.get(i), inedibleFood.get(i), makeCategory));
+		}
+	}
 
+	public void printResult(){
+		output.recommendResult(menus);
 	}
 
 }

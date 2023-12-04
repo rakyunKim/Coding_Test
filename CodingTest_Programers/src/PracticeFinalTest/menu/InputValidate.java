@@ -40,7 +40,7 @@ public class InputValidate {
 			!menu.china.contains(inedibleFood) &&
 			!menu.asia.contains(inedibleFood) &&
 			!menu.western.contains(inedibleFood)){
-			throw new IllegalArgumentException(ERROR + "없은 메뉴입니다.");
+			throw new IllegalArgumentException(ERROR + "없는 메뉴입니다.");
 		}
 	}
 }

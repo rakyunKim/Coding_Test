@@ -6,5 +6,7 @@ public class Application {
 		CoachesMenuManager manager = new CoachesMenuManager();
 		manager.startRecommendMenu();
 		manager.getCoachesInedibleFood();
+		manager.setRecommendMenu();
+		manager.printResult();
 	}
 }
