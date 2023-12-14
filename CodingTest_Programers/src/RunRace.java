@@ -3,6 +3,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RunRace {
+	public static class Player{
+		String name;
+		int currentRank;
+		public Player(String name, int currentRank){
+			this.name = name;
+			this.currentRank = currentRank;
+		}
+		public void movedUpRank(){
+			currentRank--;
+		}
+		public void movedDownRank(){
+			currentRank++;
+		}
+		public int getCurrentRank(){
+			return currentRank;
+		}
+		public String getName(){
+			return name;
+		}
+	}
 	public static void main(String[] args) {
 		String[] players = new String[]{"mumu", "soe", "poe", "kai", "mine"};
 		String[] callings = new String[]{"kai", "kai", "mine", "mine"};
@@ -12,6 +32,14 @@ public class RunRace {
 		}
 		String[] answer = setUpAnswer(playerMap);
 		System.out.println(Arrays.toString(answer));
+	}
+
+	private static Map<String, Player> makePlayerList(String[] players) {
+		Map<String, Player> playerMap = new HashMap<>();
+		for (int i = 0; i < players.length; i++){
+			playerMap.put(players[i], new Player(players[i], i + 1));
+		}
+		return playerMap;
 	}
 
 	private static void finishRace(Map<String, Player> playerMap, String calling) {
@@ -37,34 +65,4 @@ public class RunRace {
 		}
 		return answer;
 	}
-
-	private static Map<String, Player> makePlayerList(String[] players) {
-		Map<String, Player> playerMap = new HashMap<>();
-		for (int i = 0; i < players.length; i++){
-			playerMap.put(players[i], new Player(players[i], i + 1));
-		}
-		return playerMap;
-	}
-
-	public static class Player{
-		String name;
-		int currentRank;
-		public Player(String name, int currentRank){
-			this.name = name;
-			this.currentRank = currentRank;
-		}
-		public void movedUpRank(){
-			currentRank--;
-		}
-		public void movedDownRank(){
-			currentRank++;
-		}
-		public int getCurrentRank(){
-			return currentRank;
-		}
-		public String getName(){
-			return name;
-		}
-	}
-
 }
