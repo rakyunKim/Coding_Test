@@ -1,24 +1,28 @@
 package Baekjoon;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Stack;
-import java.util.StringTokenizer;
 
 public class Number17298 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-		int ARR_LENGTH = Integer.parseInt(stringTokenizer.nextToken());
-		stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+		int ARR_LENGTH = Integer.parseInt(bufferedReader.readLine());
+
+		String[] space = bufferedReader.readLine().split(" ");
+
 		int[] ARR = new int[ARR_LENGTH];
-		int[] answer = new int[ARR_LENGTH];
 		for (int i = 0; i < ARR_LENGTH; i++){
-			ARR[i] = Integer.parseInt(stringTokenizer.nextToken());
+			ARR[i] = Integer.parseInt(space[i]);
 		}
-		// 여기서 스택은 인덱스를 저장하기 위한 용도로 활용
+
+		int[] answer = new int[ARR_LENGTH];
+
 		Stack<Integer> stack = new Stack<>();
+		// 처음에 스택에 아무것도 없으니 0번째 인덱스를 넣어줌
 		stack.push(0);
 		for (int i = 0; i < ARR_LENGTH; i++){
 			while (!stack.isEmpty() && ARR[stack.peek()] < ARR[i]){
@@ -26,11 +30,16 @@ public class Number17298 {
 			}
 			stack.push(i);
 		}
-		while (!stack.empty()){
+
+		while (!stack.isEmpty()){
 			answer[stack.pop()] = -1;
 		}
-		for (int i : answer){
-			System.out.println(i);
+
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+		for (int a : answer){
+			bufferedWriter.write(a + " ");
 		}
+		bufferedWriter.write("\n");
+		bufferedWriter.flush();
 	}
 }
