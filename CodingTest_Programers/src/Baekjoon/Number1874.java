@@ -29,7 +29,7 @@ public class Number1874 {
 				resultList.add("-");
 			}else {
 				int current = stack.pop();
-				if (current > number){
+				if (current > currentNumber){
 					System.out.println("NO");
 					result = false;
 					break;
