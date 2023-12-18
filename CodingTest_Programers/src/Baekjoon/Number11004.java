@@ -22,5 +22,5 @@ public class Number11004 {
 
 		Arrays.sort(ARR);
 		System.out.println(ARR[position]);
-		}
+	}
 }
