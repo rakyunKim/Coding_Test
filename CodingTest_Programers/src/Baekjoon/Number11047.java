@@ -22,6 +22,7 @@ public class Number11047 {
 				remainingAmount = remainingAmount % coin[currentCoin];
 			}else currentCoin--;
 		}
+
 		System.out.println(answer);
 	}
 }
