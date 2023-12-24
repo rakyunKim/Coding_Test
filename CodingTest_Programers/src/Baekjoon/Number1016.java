@@ -12,7 +12,7 @@ public class Number1016 {
 		for (long i = 2; i * i <= Max; i++) {
 			long pow = i * i; // 제곱수
 			long start_index = Min / pow;
-			;
+			
 			if (Min % pow != 0)
 				start_index++; // 나머지가 있으면 1을 더해주어야 Min보다 큰 제곱수 부터 시작됨
 			for (long j = start_index; pow * j <= Max; j++) { // 제곱수를 true로 변경
