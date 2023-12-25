@@ -16,7 +16,6 @@ public class Number1934 {
 			System.out.println(result);
 		}
 	}
-
 	private static int MOD(int small, int large) {
 		if (large == 0){
 			return small;
@@ -24,6 +23,4 @@ public class Number1934 {
 			return MOD(large, small % large);
 		}
 	}
-
-
 }
