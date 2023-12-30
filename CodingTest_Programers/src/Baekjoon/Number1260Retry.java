@@ -15,13 +15,12 @@ public class Number1260Retry {
 	public static void main(String[] args) throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-
 		int nodeCount = Integer.parseInt(stringTokenizer.nextToken());
 		int edgeCount = Integer.parseInt(stringTokenizer.nextToken());
 		int startNode = Integer.parseInt(stringTokenizer.nextToken());
 
-
 		adjacencyList = new ArrayList[nodeCount + 1];
+		visited = new boolean[nodeCount + 1];
 
 		for (int i = 1; i <= nodeCount; i++){
 			adjacencyList[i] = new ArrayList<>();
@@ -29,19 +28,19 @@ public class Number1260Retry {
 
 		for (int i = 0; i < edgeCount; i++){
 			stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-			int first = Integer.parseInt(stringTokenizer.nextToken());
-			int second = Integer.parseInt(stringTokenizer.nextToken());
-			adjacencyList[first].add(second);
-			adjacencyList[second].add(first);
+			int start = Integer.parseInt(stringTokenizer.nextToken());
+			int end = Integer.parseInt(stringTokenizer.nextToken());
+			adjacencyList[start].add(end);
+			adjacencyList[end].add(start);
 		}
 
 		for (int i = 1; i <= nodeCount; i++){
 			Collections.sort(adjacencyList[i]);
 		}
-		visited = new boolean[nodeCount + 1];
+
 		DFS(startNode);
-		System.out.println();
 		visited = new boolean[nodeCount + 1];
+		System.out.println();
 		BFS(startNode);
 	}
 
@@ -54,21 +53,19 @@ public class Number1260Retry {
 			System.out.print(currentNode + " ");
 			for (int i : adjacencyList[currentNode]){
 				if (!visited[i]){
-					visited[i] = true;
 					queue.add(i);
+					visited[i] = true;
 				}
 			}
 		}
 	}
 
 	private static void DFS(int startNode) {
+		visited[startNode] = true;
 		System.out.print(startNode + " ");
-		if (!visited[startNode]){
-			visited[startNode] = true;
-			for (int currentNode : adjacencyList[startNode]){
-				if (!visited[currentNode]){
-					DFS(currentNode);
-				}
+		for (int currentNode : adjacencyList[startNode]){
+			if (!visited[currentNode]){
+				DFS(currentNode);
 			}
 		}
 	}
