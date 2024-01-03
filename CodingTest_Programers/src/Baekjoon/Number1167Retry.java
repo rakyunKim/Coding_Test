@@ -29,12 +29,12 @@ public class Number1167Retry {
 
 	}
 }
-class Edge {
-	int node;
-	int distance;
-	public Edge(int node, int distance){
-		this.node = node;
-		this.distance = distance;
-	}
-
-}
+//class Edge {
+//	int node;
+//	int distance;
+//	public Edge(int node, int distance){
+//		this.node = node;
+//		this.distance = distance;
+//	}
+//
+//}
