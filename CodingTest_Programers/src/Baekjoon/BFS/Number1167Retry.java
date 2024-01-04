@@ -1,11 +1,10 @@
 package Baekjoon.BFS;
 
-import Baekjoon.BusStop;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Number1167Retry {
-	static ArrayList<BusStop>[] adjacencyList;
+	static ArrayList<Node>[] adjacencyList;
 	static boolean[] visited;
 	public static void main(String[] args) throws Exception {
 		Scanner scanner = new Scanner(System.in);
