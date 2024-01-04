@@ -1,13 +1,10 @@
 package Baekjoon;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class Number1167Retry {
-	static ArrayList<Edge>[] adjacencyList;
+	static ArrayList<BusStop>[] adjacencyList;
 	static boolean[] visited;
 	public static void main(String[] args) throws Exception {
 		Scanner scanner = new Scanner(System.in);
@@ -23,7 +20,7 @@ public class Number1167Retry {
 				int node = scanner.nextInt();
 				if (node == -1) break;
 				int distance = scanner.nextInt();
-				adjacencyList[startNode].add(new Edge(node, distance));
+//				adjacencyList[startNode].add(new Edge(node, distance));
 			}
 		}
 
