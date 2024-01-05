@@ -1,4 +1,4 @@
-package Baekjoon.정렬모음.퀵정렬.버블정렬;
+package Baekjoon.정렬모음.버블정렬;
 import java.util.Scanner;
 
 public class Number2750 {

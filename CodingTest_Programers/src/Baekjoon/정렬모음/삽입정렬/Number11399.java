@@ -1,4 +1,4 @@
-package Baekjoon.정렬모음.퀵정렬.삽입정렬;
+package Baekjoon.정렬모음.삽입정렬;
 
 import java.io.BufferedReader;
 import java.io.IOException;
