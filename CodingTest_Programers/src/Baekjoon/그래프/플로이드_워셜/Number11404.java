@@ -51,6 +51,7 @@ public class Number11404 {
 				}
 				System.out.print(" ");
 			}
+
 			System.out.println();
 		}
 	}
