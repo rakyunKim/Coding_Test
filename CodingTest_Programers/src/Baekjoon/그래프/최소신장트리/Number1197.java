@@ -1,6 +1,7 @@
 package Baekjoon.그래프.최소신장트리;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Number1197 {
@@ -23,7 +24,7 @@ public class Number1197 {
 			int distance = scanner.nextInt();
 			edgeList[i] = new Edge(start, end, distance);
 		}
-
+		Arrays.sort(edgeList);
 		int maximumEdgeCount = nodeCount - 1;
 		int answer = 0;
 		for (int i = 0; i < edgeCount; i++){
@@ -45,7 +46,7 @@ public class Number1197 {
 		int startParent = find(start);
 		int endParent = find(end);
 		if (startParent != endParent){
-			parent[end] = startParent;
+			parent[endParent] = startParent;
 		}
 	}
 	private static int find(int node) {
