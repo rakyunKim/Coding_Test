@@ -15,6 +15,7 @@ public class Number9252 {
 		B = br.readLine().toCharArray();
 		DP = new long[A.length + 1][B.length + 1];
 		Path = new ArrayList<Character>();
+
 		for (int i = 1; i <= A.length; i++) {
 			for (int j = 1; j <= B.length; j++) {
 				if (A[i - 1] == B[j - 1]) {
@@ -24,11 +25,14 @@ public class Number9252 {
 				}
 			}
 		}
+
 		System.out.println(DP[A.length][B.length]);
 		getText(A.length, B.length);
+
 		for (int i = Path.size() - 1; i >= 0; i--) {
 			System.out.print(Path.get(i));
 		}
+
 		System.out.println();
 	}
 	private static void getText(int r, int c) { // LCS 출력함수
