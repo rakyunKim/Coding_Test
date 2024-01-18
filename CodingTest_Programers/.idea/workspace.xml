@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67490293-2b83-48e5-9059-bac3f732dc46" name="Changes" comment="Number9252 tryAgain">
-      <change afterPath="$PROJECT_DIR$/src/Baekjoon/소마코테준비/Number1463.java" afterDir="false" />
+    <list default="true" id="67490293-2b83-48e5-9059-bac3f732dc46" name="Changes" comment="Number1463 complete">
+      <change afterPath="$PROJECT_DIR$/src/Baekjoon/소마코테준비/Number1920.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +37,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Number1463.executor": "Debug",
+    "Application.Number1463.executor": "Run",
+    "Application.Number1920.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -86,7 +87,8 @@
       <workItem from="1701522374338" duration="3657000" />
       <workItem from="1701562900210" duration="4986000" />
       <workItem from="1701651537862" duration="5000000" />
-      <workItem from="1705493417182" duration="1835000" />
+      <workItem from="1705493417182" duration="2279000" />
+      <workItem from="1705569181932" duration="2814000" />
     </task>
     <task id="LOCAL-00001" summary="Feat(CoachesMenuManager): add Controller">
       <option name="closed" value="true" />
@@ -136,7 +138,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705475410900</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Number1463 complete">
+      <option name="closed" value="true" />
+      <created>1705495593273</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1705495593273</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,18 +158,8 @@
     <MESSAGE value="Feat(InputValidate): add InputValidate.java" />
     <MESSAGE value="Feat(final): complete Project" />
     <MESSAGE value="Number9252 tryAgain" />
-    <option name="LAST_COMMIT_MESSAGE" value="Number9252 tryAgain" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Baekjoon/소마코테준비/Number1463.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Number1463 complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Number1463 complete" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CodingTest_Programers$Application.ic" NAME="Application Coverage Results" MODIFIED="1701654187701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
