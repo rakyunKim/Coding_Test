@@ -1,33 +1,45 @@
 package Baekjoon.소마코테준비;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Number15650 {
-    static int numberCount;
-    static ArrayList<Integer>[] adjacency;
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int numberRange = scanner.nextInt();
-        numberCount = scanner.nextInt();
-        adjacency = new ArrayList[numberRange + 1];
+    static StringBuilder sb = new StringBuilder();
+    static int n, m;
+    static boolean[] visit;
+    static int[] arr;
 
-        for (int i = 1; i <= numberRange; i++){
-            adjacency[i] = new ArrayList<>();
-            for (int j = i + 1; j <= numberRange; j++){
-                adjacency[i].add(j);
-            }
-        }
 
-        for (int i = 1; i <= numberRange; i++){
-            dfs(i);
-        }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+
+        visit = new boolean[n];
+        arr = new int[m];
+        dfs(0,0);
+        System.out.println(sb);
     }
 
-    private static void dfs(int i) {
-        for (int j : adjacency[i]){
-            System.out.print(i + " ");
-            System.out.print(j + "");
+    private static void dfs(int depth, int start) {
+        if (depth == m) {
+            for (int val : arr) {
+                sb.append(val).append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
+
+        for (int i = start; i < n; i++) {
+            if (!visit[i]) {
+                visit[i] = true;
+                arr[depth] = i + 1;
+                dfs(depth + 1, i+1);
+                visit[i] = false;
+            }
         }
     }
 }
