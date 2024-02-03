@@ -21,7 +21,7 @@ public class Number15988 {
                     dp[j] = (dp[j - 1] + dp[j - 2] + dp[j - 3]) % 1000000009;
                 }
             }
-            System.out.println(dp[element]);
+            System.out.println(dp[element] % 1000000009);
         }
     }
 }
