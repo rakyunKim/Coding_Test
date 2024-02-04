@@ -2,9 +2,6 @@ package Baekjoon.소마코테준비;
 import java.util.*;
 
 public class Number1107 {
-    static List<Integer> notWorkArr;
-    static String target;
-    static String[] targets;
     public static void main(String[] args)  {
         Scanner scan = new Scanner(System.in);
 
