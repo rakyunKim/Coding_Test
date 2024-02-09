@@ -41,15 +41,6 @@ public class Number1976 {
             System.out.println("NO");
         }
 
-
-
-
-//        for(int i = 0; i < cityCount; i++){
-//            for(int j = 0; j < cityCount; j++){
-//                System.out.print(possibility[i][j]);
-//            }
-//            System.out.println();
-//        }
     }
 
     private static void union(int cityOne, int cityTwo) {
