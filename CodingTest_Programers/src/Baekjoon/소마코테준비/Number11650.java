@@ -5,8 +5,8 @@ import java.util.*;
 public class Number11650 {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        int pointCount = scanner.nextInt();
 
+        int pointCount = scanner.nextInt();
         int[][] point = new int[pointCount][2];
 
         for(int i = 0; i < pointCount; i++){
