@@ -5,13 +5,8 @@ import java.util.*;
 public class Number11650 {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-
-
         int pointCount = scanner.nextInt();
-        ArrayList<Integer>[] adjacency = new ArrayList[pointCount];
-        for(int i = 0; i < pointCount; i++){
-            adjacency[i] = new ArrayList<>();
-        }
+
         int[][] point = new int[pointCount][2];
 
         for(int i = 0; i < pointCount; i++){
