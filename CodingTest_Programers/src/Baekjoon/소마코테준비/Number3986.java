@@ -26,8 +26,6 @@ public class Number3986 {
         int answer = 0;
         for(int i = 0; i < stringCount; i++){
             String target = input[i];
-            int count = 0;
-
             if(target.length() % 2 == 0){
                 Stack<String> stack = new Stack<>();
                 char[] temp = target.toCharArray();
@@ -42,14 +40,14 @@ public class Number3986 {
 
                         if(past.equals(current)){
                             stack.pop();
-                            count++;
                         } else {
                             stack.add(current);
                         }
                     }
                 }
+                if(stack.isEmpty()) answer++;
             }
-            if(count == target.length() / 2) answer++;
+
         }
         System.out.println(answer);
     }
