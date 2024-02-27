@@ -86,7 +86,9 @@ public class Number1913 {
             }
             sb.append("\n");
         }
+
         System.out.print(sb.toString());
+
         System.out.println(targetPoint[0] + " " + targetPoint[1]);
     }
 }
