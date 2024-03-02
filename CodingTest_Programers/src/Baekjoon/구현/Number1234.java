@@ -6,5 +6,6 @@ import java.util.*;
 public class Number1234 {
     public static void main(String[] args) throws NumberFormatException, IOException {
         Scanner scanner = new Scanner(System.in);
+        int count = scanner.nextInt();
     }
 }
