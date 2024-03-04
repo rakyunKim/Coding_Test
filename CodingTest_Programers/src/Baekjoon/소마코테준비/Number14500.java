@@ -21,28 +21,6 @@ public class Number14500 {
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        arr = new int[n][m];
-        visit = new boolean[n][m];
-
-        // 입력
-        for(int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            for(int j = 0; j < m; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
-
-        // 전체 탐색 (dfs)
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                visit[i][j] = true;
-                solve(i,j,arr[i][j],1);
-                visit[i][j] = false;
-            }
-        }
-
         System.out.println(max);
     }
 
