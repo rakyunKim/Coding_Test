@@ -12,7 +12,6 @@ public class Number14500 {
     static int n;
     static int m;
 
-    // 상하좌우
     static int[] dx = {-1,1,0,0};
     static int[] dy = {0,0,-1,1};
 
