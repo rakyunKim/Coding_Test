@@ -20,6 +20,8 @@ public class Number14500 {
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
+        int ySize = Integer.parseInt(st.nextToken());
+        int xSize = Integer.parseInt(st.nextToken());
         System.out.println(max);
     }
 }
