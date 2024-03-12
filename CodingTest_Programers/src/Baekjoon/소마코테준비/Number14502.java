@@ -51,14 +51,6 @@ public class Number14502 {
         }
 
         System.out.println(maxSafeZone);
-        
-        
-//        for(int i = 0; i < maxY; i++){
-//            for(int j = 0; j < maxX; j++){
-//                System.out.print(map[i][j]);
-//            }
-//            System.out.println();
-//        }
     }
 
     private static void spreadVirus(int[] first, int[] second, int[] third) {
