@@ -33,6 +33,8 @@ public class Number14503 {
             }
         }
 
+        // 지금은 맵에 있는 모든 곳을 뒤지게 됨, 그러나 내가 갈 수 있는 방향에서
+        // 청소할 곳을 찾아야 함
         dfs(vacuumY, vacuumX, vacuumWay);
 
         System.out.println(countVisited());
