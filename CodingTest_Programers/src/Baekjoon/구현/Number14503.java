@@ -1,8 +1,6 @@
 package Baekjoon.구현;
 
 import java.io.IOException;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Number14503 {
