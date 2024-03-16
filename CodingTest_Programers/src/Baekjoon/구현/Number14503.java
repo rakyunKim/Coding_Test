@@ -25,6 +25,7 @@ public class Number14503 {
         vacuumX = scanner.nextInt();
         vacuumWay = scanner.nextInt();
 
+
         for(int i = 0; i < maxY; i++){
             for(int j = 0; j < maxX; j++){
                 map[i][j] = scanner.nextInt();
