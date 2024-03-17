@@ -4,116 +4,54 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Number14503 {
-    // 0 : 북 , 1 : 동, 2 : 남, 3 : 서
-    static int maxY;
-    static int maxX;
-    static int[][] map;
-    static int vacuumY;
-    static int vacuumX;
-    static int vacuumWay;
-    static int[][] visited;
+    static int N, M, r, c, d;
+    static int[][] arr;
+    static int count = 1; //시작 지점은 항상 청소되어 있지 않음
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, 1, 0, -1};
     public static void main(String[] args) throws NumberFormatException, IOException {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
 
-        maxY = scanner.nextInt();
-        maxX = scanner.nextInt();
+        N = scan.nextInt();
+        M = scan.nextInt();
+        r = scan.nextInt();
+        c = scan.nextInt();
+        d = scan.nextInt();
 
-        map = new int[maxY][maxX];
-        visited = new int[maxY][maxX];
-
-        vacuumY = scanner.nextInt();
-        vacuumX = scanner.nextInt();
-        vacuumWay = scanner.nextInt();
-
-
-        for(int i = 0; i < maxY; i++){
-            for(int j = 0; j < maxX; j++){
-                map[i][j] = scanner.nextInt();
+        arr = new int[N][M];
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < M; j++) {
+                arr[i][j] = scan.nextInt();
             }
         }
 
-        // 지금은 맵에 있는 모든 곳을 뒤지게 됨, 그러나 내가 갈 수 있는 방향에서
-        // 청소할 곳을 찾아야 함
-        dfs(vacuumY, vacuumX, vacuumWay);
-
-        System.out.println(countVisited());
+        clean(r, c, d);
+        System.out.println(count);
     }
 
-    private static int countVisited() {
-        int count = 0;
-        for(int i = 0; i < maxY; i++){
-            for(int j = 0; j < maxX; j++){
-                if(visited[i][j] == 1){
+    public static void clean(int x, int y, int dir) {
+
+        arr[x][y] = -1;
+
+        for(int i = 0; i < 4; i++) {
+            dir = (dir+3)%4;
+
+            int nx = x + dx[dir];
+            int ny = y + dy[dir];
+            if(nx >= 0 && ny >= 0 && nx < N && ny < M) {
+                if(arr[nx][ny] == 0) {
                     count++;
+                    clean(nx, ny, dir);
+                    return;
                 }
             }
         }
-        return count;
+
+        int d = (dir + 2) % 4; //반대 방향으로 후진
+        int bx = x + dx[d];
+        int by = y + dy[d];
+        if(bx >= 0 && by >= 0 && bx < N && by < M && arr[bx][by] != 1) {
+            clean(bx, by, dir); //후진이니까 바라보는 방향은 유지
+        }
     }
-
-    private static void dfs(int y, int x, int way) {
-        visited[y][x] = 1;
-
-        for(int i = 0; i < maxY; i++){
-            for(int j = 0; j < maxX; j++){
-                System.out.print(visited[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println("-----------------------------------------");
-
-        int count = 0;
-        while(count <= 3){
-            if(way == 0){
-                if(y - 1 >= 0 && map[y - 1][x] == 0 && visited[y - 1][x] == 0){
-                    dfs(y - 1, x, way);
-                } else {
-                    way = 1;
-                    count++;
-                }
-            }
-
-            if(way == 1){
-                if(x + 1 < maxX && map[y][x + 1] == 0 && visited[y][x + 1] == 0){
-                    dfs(y, x + 1, way);
-                } else {
-                    way = 2;
-                    count++;
-                }
-            }
-
-            if(way == 2){
-                if(y + 1 < maxY && map[y + 1][x] == 0 && visited[y + 1][x] == 0){
-                    dfs(y + 1, x, way);
-                } else {
-                    way = 3;
-                    count++;
-                }
-
-            }
-
-            if(way == 3) {
-                if (x - 1 >= 0 && map[y][x - 1] == 0 && visited[y][x - 1] == 0) {
-                    dfs(y, x - 1, way);
-                } else {
-                    way = 0;
-                    count++;
-                }
-            }
-        }
-
-//        if (way == 0 && y + 1 < maxY && map[y + 1][x] == 0) {
-//            dfs(y + 1, x, way);
-//        } else if (way == 1 && x - 1 >= 0 && map[y][x - 1] == 0) {
-//            dfs(y, x - 1, way);
-//        } else if (way == 2 && y - 1 >= 0 && map[y - 1][x] == 0) {
-//            dfs(y - 1, x, way);
-//        } else if (way == 3 && x + 1 < maxX && map[y][x + 1] == 0) {
-//            dfs(y, x + 1, way);
-//        } else {
-//            return;
-//        }
-    }
-
-
 }
