@@ -1,17 +1,16 @@
 package Programers;
 
-import java.awt.image.ImageProducer;
 import java.io.IOException;
 import java.util.*;
 
 public class ReceivingTheOutcomeOfTheReport {
     public static void main(String[] args) throws IOException {
-//        String[] id_list = new String[]{"muzi", "frodo", "apeach", "neo"};
-        String[] id_list = new String[]{"con", "ryan"};
-//        String[] report = new String[]{"muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"};
-        String[] report = new String[]{"ryan con", "ryan con", "ryan con", "ryan con"};
-//        int k = 2;
-        int k = 3;
+        String[] id_list = new String[]{"muzi", "frodo", "apeach", "neo"};
+//        String[] id_list = new String[]{"con", "ryan"};
+        String[] report = new String[]{"muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"};
+//        String[] report = new String[]{"ryan con", "ryan con", "ryan con", "ryan con"};
+        int k = 2;
+//        int k = 3;
         int[] result = solution(id_list, report, k);
         for (int i : result){
             System.out.print(i + " ");
@@ -22,10 +21,10 @@ public class ReceivingTheOutcomeOfTheReport {
         Map<String, Integer> receiveCount = new HashMap<>();
 
         ArrayList<String>[] reportList = new ArrayList[id_list.length];
+//        ArrayList<String>[] receiveList = new ArrayList[id_list.length];
         for (int i = 0; i < id_list.length; i++){
             reportList[i] = new ArrayList<>();
         }
-
 
         for (String a : report){
             String[] temp = a.split(" ");
@@ -34,18 +33,16 @@ public class ReceivingTheOutcomeOfTheReport {
             String receiver = temp[1];
 
             for (int i = 0; i < id_list.length; i++){
-                if (id_list[i].equals(reporter)){
+                if (id_list[i].equals(reporter) && !reportList[i].contains(receiver)){
                     reportList[i].add(receiver);
+                    if (receiveCount.containsKey(receiver)){
+                        int receive = receiveCount.get(receiver);
+                        receiveCount.put(receiver, receive + 1);
+                    } else {
+                        receiveCount.put(receiver, 1);
+                    }
                 }
             }
-
-            if (receiveCount.containsKey(receiver)){
-                int receive = receiveCount.get(receiver);
-                receiveCount.put(receiver, receive + 1);
-            } else {
-                receiveCount.put(receiver, 1);
-            }
-
         }
 
 
@@ -60,13 +57,6 @@ public class ReceivingTheOutcomeOfTheReport {
                 }
             }
         }
-
-//        System.out.println(receiveCount);
-
-
-
-
-
         return answer;
     }
 }
