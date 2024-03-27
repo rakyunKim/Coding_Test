@@ -52,13 +52,13 @@ public class Tuple {
 
         for (int i = 0; i < group.length; i++) {
             String[] current = group[i].split(",");
-            if (!Objects.equals(group[i], ",") && !answer.contains(Integer.parseInt(group[i]))) {
-                answer.add(Integer.parseInt(group[i]));
+            for (String a : current) {
+                int parseInt = Integer.parseInt(a);
+                if (!answer.contains(parseInt)){
+                    answer.add(parseInt);
+                }
             }
         }
-
-
-
 
         return answer;
     }
