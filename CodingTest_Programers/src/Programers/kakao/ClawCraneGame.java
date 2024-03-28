@@ -14,7 +14,6 @@ public class ClawCraneGame {
                 {4, 2, 4, 4, 2},
                 {3, 5, 1, 3, 1}
         };
-
         int[] moves = new int[]{1,5,3,5,1,2,1,4};
         int result = solution(board, moves);
         System.out.println(result);
