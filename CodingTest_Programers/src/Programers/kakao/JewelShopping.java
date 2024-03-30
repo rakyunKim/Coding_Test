@@ -1,10 +1,7 @@
 package Programers.kakao;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class JewelShopping {
     public static void main(String[] args) throws IOException {
@@ -24,9 +21,30 @@ public class JewelShopping {
 //            System.out.println(gem);
 //        }
 
+        List<String> selected = new ArrayList<>();
+        int start = 1;
+        int end = 0;
+        for (int i = 0; i < gems.length; i++) {
+            if (!selected.contains(gems[i])) {
+                selected.add(gems[i]);
+                end = i + 1;
+            } else {
+                if (selected.get(0).equals(gems[i])) {
+                    selected.remove(0);
+                    start++;
+                    selected.add(gems[i]);
+                    if (selected.size() >= 2) {
+                        if (selected.get(0).equals(selected.get(1))) {
+                            selected.remove(0);
+                            start++;
+                        }
+                    }
+                } else {
+                    selected.add(gems[i]);
+                }
+            }
+        }
 
-
-        int[] answer = {};
-        return answer;
+        return new int[]{start, end};
     }
 }
