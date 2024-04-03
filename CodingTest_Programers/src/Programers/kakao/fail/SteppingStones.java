@@ -1,4 +1,4 @@
-package Programers.kakao;
+package Programers.kakao.fail;
 
 import java.io.IOException;
 
