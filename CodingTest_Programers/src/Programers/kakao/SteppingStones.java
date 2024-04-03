@@ -12,38 +12,43 @@ public class SteppingStones {
         System.out.println("정답 :: " + result);
     }
     public static int solution(int[] stones, int k) {
-        // k만큼 앞을 보고 만약 나보다 작다면 작은 수로 answer을 초기화
-        // 그게 아니라면 현재의 수로 answer을 계속 두면서 앞으로 전진
+        int[] dp = new int[stones.length];
+        int rangeStart = 0;
+        int rangeEnd = k - 1;
 
-
-        int answer = 0;
-        int maxIndex = 0;
+        int maxValueInRange = 0;
         for (int i = 0; i < k; i++) {
-            if (answer < stones[i]) {
-                answer = stones[i];
-                maxIndex = i;
-            }
+            dp[i] = stones[i];
+            maxValueInRange = Math.max(maxValueInRange, stones[i]);
         }
 
-        for (int i = maxIndex; i < stones.length; i++) {
-            if (i + k >= stones.length) {
-                break;
+        for (int i = k; i < stones.length; i++) {
+
+            if (maxValueInRange > stones[i]) {
+                dp[i] = stones[i];
             } else {
-                int max = 0;
-                maxIndex = 0;
-                for (int j = i + 1; j <= i + k; j++) {
-                    if (max < stones[j]) {
-                        max = stones[j];
-                        maxIndex = j;
+                dp[i] = maxValueInRange;
+            }
+
+            if (i != stones.length - 1) {
+                if (stones[rangeStart] == maxValueInRange) {
+                    maxValueInRange = 0;
+                    for (int j = i ; j > i - k; j--) {
+                        maxValueInRange = Math.max(maxValueInRange, dp[j]);
                     }
                 }
-                if (max < answer) {
-                    answer = max;
+                rangeStart ++;
+                rangeEnd ++;
+                if (rangeEnd < stones.length && stones[rangeEnd] > maxValueInRange) {
+                    maxValueInRange = dp[rangeEnd];
                 }
-                i = maxIndex;
             }
         }
 
+        int answer = 0;
+        for (int i = stones.length - 1; i >= stones.length - k; i--) {
+            answer = Math.max(answer, dp[i]);
+        }
 
         return answer;
     }
