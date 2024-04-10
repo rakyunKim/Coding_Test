@@ -3,6 +3,7 @@ package Programers.kakao.fail;
 import java.io.IOException;
 
 public class PedestrianHeaven {
+    static Element[][] dp;
     static int MOD = 20170805;
     static int answer;
     static int maxY;
@@ -28,9 +29,36 @@ public class PedestrianHeaven {
         System.out.println(solution(m, n, cityMap));
     }
     public static int solution(int m, int n, int[][] cityMap) {
+        dp = new Element[cityMap.length][cityMap[0].length];
         maxY = m;
         maxX = n;
         answer = 0;
+
+        dp[0][0] = new Element(0,0);
+        for (int i = 1; i < cityMap[0].length; i++) {
+            if (cityMap[0][i] != 1) {
+                if (cityMap[0][i] == 2) {
+                    dp[0][i] = new Element(0, 1);
+                } else {
+                    dp[0][i] = new Element(1, 1);
+                }
+            } else {
+                dp[0][i] = new Element(0,0);
+            }
+        }
+
+        for (int i = 1; i < cityMap.length; i++) {
+            if (cityMap[i][0] != 1) {
+                if (cityMap[i][0] == 2) {
+                    dp[i][0] = new Element(1, 0);
+                } else {
+                    dp[i][0] = new Element(1, 1);
+                }
+            } else {
+                dp[i][0] = new Element(0,0);
+            }
+        }
+
 
         searchPath(new int[]{0,0}, new int[]{0,0}, cityMap);
 
@@ -59,5 +87,15 @@ public class PedestrianHeaven {
                 }
             }
         }
+    }
+}
+
+class Element {
+    int possibleY;
+    int possibleX;
+
+    public Element(int y, int x) {
+        possibleY = y;
+        possibleX = x;
     }
 }
