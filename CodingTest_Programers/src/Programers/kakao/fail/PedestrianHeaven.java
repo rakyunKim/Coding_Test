@@ -40,8 +40,6 @@ public class PedestrianHeaven {
     }
 
     private static void searchPath(int[] current, int[] pastWay, int[][] cityMap){
-        // pastWay가 1일 경우 y축++
-        // pastWay가 2일 경우 x축++
         int currentY = current[0];
         int currentX = current[1];
         if (currentY == maxY - 1 && currentX == maxX - 1) {
