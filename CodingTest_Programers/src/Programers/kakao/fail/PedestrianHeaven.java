@@ -28,8 +28,6 @@ public class PedestrianHeaven {
         System.out.println(solution(m, n, cityMap));
     }
     public static int solution(int m, int n, int[][] cityMap) {
-        // 내가 오던 방향이 필요
-        // 현재 내 위치 필요
         maxY = m;
         maxX = n;
         answer = 0;
