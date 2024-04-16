@@ -67,7 +67,12 @@ public class CaveExploration {
 
         parent = new int[n];
         for (int i = 0; i < n; i++) {
-            parent[i] = i;
+            int visit = haveToCheckContains(i);
+            if (visit != -1) {
+                parent[i] = haveToVisited[visit];
+            } else {
+                parent[i] = i;
+            }
         }
 
         for (int i = 0; i < path.length; i++) {
@@ -83,6 +88,13 @@ public class CaveExploration {
 
         boolean answer = true;
         return answer;
+    }
+
+    private static int haveToCheckContains(int element) {
+        for (int i = 0; i < haveToCheck.length; i++) {
+            if (element == haveToCheck[i]) return i;
+        }
+        return -1;
     }
 
     private static void union(int element1, int element2) {
