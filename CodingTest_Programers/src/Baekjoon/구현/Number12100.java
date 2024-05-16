@@ -49,7 +49,6 @@ public class Number12100 {
         if (way == 0) {
             for (int x = 0; x < mapSize; x++) {
                 int targetPtr = 0;
-
                 for (int y = 0; y < mapSize; y++) {
                     int value = map[y][x];
                     if (y + 1 < mapSize && map[y][x] == map[y + 1][x]) {
