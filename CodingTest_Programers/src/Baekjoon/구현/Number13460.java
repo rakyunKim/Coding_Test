@@ -115,7 +115,7 @@ public class Number13460 {
         int nextBlueY = blue[0] + way[0];
         int nextBlueX = blue[1] + way[1];
 
-
+        return true;
     }
 
     private static int DFS(int[] red, int[] blue, int way, int count) {
