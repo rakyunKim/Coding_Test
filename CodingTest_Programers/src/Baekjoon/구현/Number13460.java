@@ -82,6 +82,41 @@ public class Number13460 {
 //        }
 
     }
+    private static int findWay(int[] red, int[] blue, int count){
+        if (map[red[0]][red[1]].equals("O")) {
+            return count;
+        }
+
+
+//        !map[nextRedY][nextRedX].equals("#") &&
+//                !map[nextRedY][nextRedX].equals("B")
+
+        for (int i = 0; i < 4; i++) {
+            int nextRedY = red[0] + dy[i];
+            int nextRedX = red[1] + dx[i];
+
+
+
+            if (nextRedY < sero - 1 && nextRedY >= 1 &&
+                    nextRedX < garo - 1 && nextRedX >= 1) {
+                int[] way = new int[]{dy[i], dx[i]};
+                if (move(red, blue, way)) {
+                    return findWay(new int[]{nextRedY, nextRedX}, blue, count);
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    private static boolean move(int[] red, int[] blue,  int[] way) {
+        int nextRedY = red[0] + way[0];
+        int nextRedX = red[1] + way[1];
+        int nextBlueY = blue[0] + way[0];
+        int nextBlueX = blue[1] + way[1];
+
+
+    }
 
     private static int DFS(int[] red, int[] blue, int way, int count) {
         if (map[red[0]][red[1]].equals("O")) return count;
