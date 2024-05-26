@@ -5,6 +5,9 @@ import java.util.Arrays;
 
 // 40분
 public class CheckingSocialDistancing {
+    static int[][] allDirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    static int[][] diagonal = {{1, 1}, {-1, 1}, {1, -1}, {-1, -1}};
+    static int[][] allDirsOneMore = {{-2, 0}, {2, 0}, {0, -2}, {0, 2}};
     public static void main(String[] args) throws NumberFormatException, IOException {
         String[][] places = new String[][] {
                 {"POOOP", "OXXOX", "OPXPX", "OOXOX", "POXXP"},
@@ -67,74 +70,46 @@ public class CheckingSocialDistancing {
     }
 
     private static boolean checkAllDirections(char[][] examRoom, int y, int x) {
-        if (y + 1 < examRoom.length && examRoom[y + 1][x] == 'P') {
-            return false;
-        }
+        for (int[] dir : allDirs) {
+            int newY = y + dir[0];
+            int newX = x + dir[1];
 
-        if (y - 1 >= 0 && examRoom[y - 1][x] == 'P') {
-            return false;
-        }
-
-        if (x + 1 < examRoom.length && examRoom[y][x + 1] == 'P') {
-            return false;
-        }
-
-        if (x - 1 >= 0 && examRoom[y][x - 1] == 'P') {
-            return false;
+            if (newY < examRoom.length && newY >= 0
+                    && newX < examRoom.length && newX >= 0
+                    && examRoom[newY][newX] == 'P') {
+                return false;
+            }
         }
 
         return true;
     }
 
     private static boolean checkTheDiagonal(char[][] examRoom, int y, int x) {
-        if(y + 1 < examRoom.length
-                && x + 1 < examRoom[0].length
-                && examRoom[y + 1][x + 1] == 'P') {
-            return examRoom[y + 1][x] == 'X' && examRoom[y][x + 1] == 'X';
-        }
+        for (int[] dir : diagonal) {
+            int newY = y + dir[0];
+            int newX = x + dir[1];
 
-        if(y - 1 >= 0
-                && x + 1 < examRoom[0].length
-                && examRoom[y - 1][x + 1] == 'P') {
-            return examRoom[y - 1][x] == 'X' && examRoom[y][x + 1] == 'X';
-        }
-
-        if(y - 1 >= 0 && x - 1 >= 0
-                && examRoom[y - 1][x - 1] == 'P') {
-            return examRoom[y - 1][x] == 'X' && examRoom[y][x - 1] == 'X';
-        }
-
-        if(y + 1 < examRoom.length
-                && x - 1 >= 0
-                && examRoom[y + 1][x - 1] == 'P') {
-            return examRoom[y + 1][x] == 'X' && examRoom[y][x - 1] == 'X';
+            if (newY < examRoom.length && newY >= 0
+                    && newX < examRoom.length && newX >= 0
+                    && examRoom[newY][newX] == 'P') {
+                if(examRoom[newY][x] != 'X' || examRoom[y][newX] != 'X') return false;
+            }
         }
 
         return true;
     }
     private static boolean checkAllDirectionsPlusOne(char[][] examRoom, int y, int x) {
-        if (y + 2 < examRoom.length
-                && examRoom[y + 2][x] == 'P'
-                && examRoom[y + 1][x] != 'X') {
-            return false;
-        }
+        for (int i = 0; i < allDirsOneMore.length; i++) {
+            int newY = y + allDirsOneMore[i][0];
+            int newX = x + allDirsOneMore[i][1];
 
-        if (y - 2 >= 0
-                && examRoom[y - 2][x] == 'P'
-                && examRoom[y - 1][x] != 'X') {
-            return false;
-        }
-
-        if (x + 2 < examRoom.length
-                && examRoom[y][x + 2] == 'P'
-                && examRoom[y][x + 1] != 'X') {
-            return false;
-        }
-
-        if (x - 2 >= 0
-                && examRoom[y][x - 2] == 'P'
-                && examRoom[y][x - 1] != 'X') {
-            return false;
+            if (newY < examRoom.length && newY >= 0
+                    && newX < examRoom.length && newX >= 0
+                    && examRoom[newY][newX] == 'P') {
+                newY = newY - allDirs[i][0];
+                newX = newX - allDirs[i][1];
+                if(examRoom[newY][newX] != 'X') return false;
+            }
         }
 
         return true;
