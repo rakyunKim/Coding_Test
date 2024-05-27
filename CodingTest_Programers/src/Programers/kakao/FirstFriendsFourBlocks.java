@@ -1,29 +1,18 @@
 package Programers.kakao;
 
 import java.io.IOException;
-import java.util.*;
 public class FirstFriendsFourBlocks {
     static char[][] map;
     static int y;
     static int x;
-    static int[][] visited;
     public static void main(String[] args) throws NumberFormatException, IOException {
+        int m = 4;
+        int n = 5;
+        String[] board = new String[]{"CCBDE", "AAADE", "AAABF", "CCBBF"};
 
+        System.out.println(solution(m, n, board));
     }
-    public int solution(int m, int n, String[] board) {
-        // x + 1 오른쪽
-        // y + 1 아래
-        // x + 1 + y + 1 오른쪽 아래
-        /*
-        먼저 주어진 판 안에서 4개의 같은 문자가 있는지 확인한다.
-        있다면 그 문자들의 좌표를 리스트에 저장한다.
-
-        다음으로 리스트에 저장되어 있는 좌표를 0으로 바꾸면서
-        만약 문자판이 이미 0이 아니라면 지워지는 블록을 표시하는 answer변수를 ++해준다.
-
-        마지막으로 판의 위쪽에 위치해 있는 문자들을 아래로 내려준다.
-        */
-
+    public static int solution(int m, int n, String[] board) {
         map = new char[m][n];
         y = m;
         x = n;
@@ -36,23 +25,58 @@ public class FirstFriendsFourBlocks {
             }
         }
 
-        // printMap();
-        int answer = 0;
-        while(checkDuplicate())
+        while(deleteDuplicate())
         {
-            answer += deleteDuplicate();
-            // printMap();
             dropBlocks();
-            // printMap();
         }
 
+        int answer = 0;
+        for(int i = 0; i < y; i++) {
+            for(int j = 0; j < x; j++) {
+                if (map[i][j] == '.') answer ++;
+            }
+        }
 
         return answer;
+    }
+
+    private static boolean deleteDuplicate()
+    {
+        boolean isPossible = false;
+
+        int[][] shouldDelete = new int[y][x];
+
+        for(int i = 0; i < y; i++) {
+            for(int j = 0; j < x; j++) {
+                if(map[i][j] != '.' &&
+                        j < x - 1 && i < y - 1 &&
+                        map[i][j] == map[i][j + 1] &&
+                        map[i][j] == map[i + 1][j] &&
+                        map[i][j] == map[i + 1][j + 1])
+                {
+                    isPossible = true;
+
+                    shouldDelete[i][j] = 1;
+                    shouldDelete[i][j + 1] = 1;
+                    shouldDelete[i + 1][j] = 1;
+                    shouldDelete[i + 1][j + 1] = 1;
+                }
+            }
+        }
+
+        for(int i = 0; i < y; i++) {
+            for(int j = 0; j < x; j++) {
+                if (shouldDelete[i][j] == 1) map[i][j] = '.';
+            }
+        }
+
+        return isPossible;
     }
 
     private static void dropBlocks()
     {
         for(int px = 0; px < x; px++) {
+
             while(true) {
                 boolean isChanged = false;
                 int emptyY = -1;
@@ -66,7 +90,7 @@ public class FirstFriendsFourBlocks {
                     }
                 }
 
-                if(emptyY > 0 && emptyX >= 0) {
+                if(emptyY > 0) {
                     for(int py = emptyY - 1; py >= 0; py--) {
                         if(map[py][px] != '.') {
                             isChanged = true;
@@ -79,60 +103,7 @@ public class FirstFriendsFourBlocks {
 
                 if(!isChanged) break;
             }
-
         }
-    }
-
-
-    private static boolean checkDuplicate()
-    {
-        boolean isPossible = false;
-        visited = new int[y][x];
-        for(int i = 0; i < y; i++) {
-            for(int j = 0; j < x; j++) {
-                if(map[i][j] != '.' &&
-                        j < x - 1 && i < y - 1 &&
-                        map[i][j] == map[i][j + 1] &&
-                        map[i][j] == map[i + 1][j] &&
-                        map[i][j] == map[i + 1][j + 1])
-                {
-                    isPossible = true;
-
-                    if(visited[i][j] == 0) {
-                        visited[i][j] = 1;
-                    }
-
-                    if(visited[i][j + 1] == 0) {
-                        visited[i][j + 1] = 1;
-                    }
-
-                    if(visited[i + 1][j] == 0) {
-                        visited[i + 1][j] = 1;
-                    }
-
-                    if(visited[i + 1][j + 1] == 0) {
-                        visited[i + 1][j + 1] = 1;
-                    }
-                }
-            }
-        }
-
-        return isPossible;
-    }
-
-    private static int deleteDuplicate()
-    {
-        int duplicateCount = 0;
-        for(int i = 0; i < y; i++) {
-            for(int j = 0; j < x; j++) {
-                if(visited[i][j] == 1) {
-                    duplicateCount++;
-                    map[i][j] = '.';
-                }
-            }
-        }
-
-        return duplicateCount;
     }
 
     private static void printMap()
