@@ -17,24 +17,23 @@ public class UndamagedSquare {
         // 즉 가로 변과 세로 변의 크기 차이에 따라 사용하지 못하는 사각형의 개수가 달라진다.
         // 그 규칙을 찾아야 한다.
         // 규칙을 찾기 위해서는 같은 변의 크기를 기준으로 다른 변의 크기를 변동해봐야 한다. 집에 가서 노트를 사용해보자
+        //
+        // 규칙은 두 수의 최대공약수를 구하고 각 변을 최대공약수로 나눈 후에
+        // 더하고 최대 공약수를 곱하면 제외되는 사각형이 나오고 총 사각형에서 빼면 된다.
 
 
         long total = (long)w * (long)h;
+        long GCD = GetGreatestCommonDivisor(w, h);
 
-        if (w == h) return total - w;
+        return total - (((w / GCD) + (h / GCD) - 1) * GCD);
+    }
 
-        if (w == 1 || h == 1) return 0;
-
-        if(w == 2) return total - h;
-
-        if(h == 2) return total - w;
-
-        h = h * 2;
-        w = w * 2;
-
-        if (w > h) return total - h;
-
-        else return total - w;
+    private static int GetGreatestCommonDivisor(int w, int h) {
+        if (h == 0) {
+            return w;
+        } else {
+            return GetGreatestCommonDivisor(h, w % h);
+        }
     }
 }
 
