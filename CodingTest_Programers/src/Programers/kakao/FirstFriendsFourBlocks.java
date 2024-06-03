@@ -25,24 +25,23 @@ public class FirstFriendsFourBlocks {
             }
         }
 
-        while(deleteDuplicate())
-        {
-            dropBlocks();
-        }
-
         int answer = 0;
-        for(int i = 0; i < y; i++) {
-            for(int j = 0; j < x; j++) {
-                if (map[i][j] == '.') answer ++;
-            }
+        while(true)
+        {
+            int deleted = deleteDuplicate();
+
+            if (deleted == 0) break;
+            answer += deleted;
+
+            dropBlocks();
         }
 
         return answer;
     }
 
-    private static boolean deleteDuplicate()
+    private static int deleteDuplicate()
     {
-        boolean isPossible = false;
+        int deletedBlockCount = 0;
 
         int[][] shouldDelete = new int[y][x];
 
@@ -54,8 +53,6 @@ public class FirstFriendsFourBlocks {
                         map[i][j] == map[i + 1][j] &&
                         map[i][j] == map[i + 1][j + 1])
                 {
-                    isPossible = true;
-
                     shouldDelete[i][j] = 1;
                     shouldDelete[i][j + 1] = 1;
                     shouldDelete[i + 1][j] = 1;
@@ -66,11 +63,14 @@ public class FirstFriendsFourBlocks {
 
         for(int i = 0; i < y; i++) {
             for(int j = 0; j < x; j++) {
-                if (shouldDelete[i][j] == 1) map[i][j] = '.';
+                if (shouldDelete[i][j] == 1) {
+                    map[i][j] = '.';
+                    deletedBlockCount++;
+                }
             }
         }
 
-        return isPossible;
+        return deletedBlockCount;
     }
 
     private static void dropBlocks()
@@ -100,7 +100,6 @@ public class FirstFriendsFourBlocks {
                         }
                     }
                 }
-
 
                 if(!isChanged) break;
             }
