@@ -32,6 +32,7 @@ public class ArcheryContest {
         bruteForce(n, info, new int[info.length], 0);
 
         if (score.get(maxScore) == null) return new int[]{-1};
+
         return score.get(maxScore);
     }
 
@@ -39,18 +40,18 @@ public class ArcheryContest {
         if (currentDepth > 10) {
             int currentScore = getScore(ryon, apeach);
             if (currentScore > maxScore) {
-//                System.out.println("currentScore :: " + currentScore);
-//                System.out.println("maxScore :: " + maxScore);
-
                 maxScore = currentScore;
                 int[] ryonClone = ryon.clone();
+
                 if (arrowsCount != 0) {
                     ryonClone[10] = arrowsCount;
                 }
+
                 score.put(currentScore, ryonClone);
             } else if (currentScore == maxScore && maxScore != 0) {
                 int[] maxRyon = score.get(maxScore);
-                score.put(maxScore, compare(maxRyon, ryon).clone());
+
+                score.put(maxScore, compareRowScore(maxRyon, ryon).clone());
             }
         }
         else {
@@ -79,11 +80,7 @@ public class ArcheryContest {
         else return 0;
     }
 
-    private static int[] compare(int[] maxRyon, int[] currentRyon) {
-        System.out.println(Arrays.toString(maxRyon));
-        System.out.println(Arrays.toString(currentRyon));
-
-
+    private static int[] compareRowScore(int[] maxRyon, int[] currentRyon) {
         for (int i = 10; i >= 0; i--) {
             if (maxRyon[i] == 0 && currentRyon[i] != 0) return currentRyon;
             else if (maxRyon[i] != 0 && currentRyon[i] == 0) return maxRyon;
