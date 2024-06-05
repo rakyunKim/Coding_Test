@@ -22,11 +22,6 @@ public class OpenChattingRoom {
     }
 
     public static String[] solution(String[] record) {
-        // 일단 입력을 받으면서 입력의 내용을 List<>에 저장한다.
-        // 그리고 enter 뒤에 들어오는 userId는 users라는 HashMap에 저장하고
-        // 이름이 변경되는 change 입력이 들어 올때에 HashMap에서 value를 변경한다.
-        // 마지막으로 List<>를 순회하며 answer[]에 userId는 HashMap에서 get으로 꺼내오며 answer[]을 완성한다.
-
         for (String s : record) {
             executeInput(s);
         }
