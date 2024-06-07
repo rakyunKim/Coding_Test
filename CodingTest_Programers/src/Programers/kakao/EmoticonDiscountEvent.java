@@ -7,7 +7,6 @@ public class EmoticonDiscountEvent {
     static int maxSubscriber = 0;
     static int maxSales = 0;
 //    static Stack<Integer> visited;
-
     static int[] visited;
     static int[] emoticonsDiscountRate;
     public static void main(String[] args) throws IOException {
@@ -56,8 +55,8 @@ public class EmoticonDiscountEvent {
         return new int[]{maxSubscriber, maxSales};
     }
 
-    private static void bruteForce(int[][] users, int[] emoticons, int discountCount) {
-        if (discountCount == emoticons.length) {
+    private static void bruteForce(int[][] users, int[] emoticons, int start) {
+        if (start == emoticons.length) {
             int[] subscriberAndSales = calculateSubscriber(users, emoticons);
 
             if (maxSubscriber < subscriberAndSales[0]) {
@@ -70,18 +69,14 @@ public class EmoticonDiscountEvent {
         }
         else
         {
-            for (int i = 0; i < emoticons.length; i++) {
-                for (int j = 1; j <= 4; j++) {
-                    if (visited[i] == 0) {
-                        visited[i] = 1;
-                        int originalPrice = emoticons[i];
-                        emoticonsDiscountRate[i] = j * 10;
-                        emoticons[i] =  (int)(emoticons[i] * ((10 - j) * 0.1));
-                        bruteForce(users, emoticons, discountCount + 1);
-                        emoticons[i] = originalPrice;
-                        visited[i] = 0;
-                    }
-                }
+            for (int i = 10; i <= 40; i += 10) {
+                visited[i] = 1;
+                int originalPrice = emoticons[i];
+                emoticonsDiscountRate[i] = j * 10;
+                emoticons[i] =  (int)(emoticons[i] * ((10 - j) * 0.1));
+                bruteForce(users, emoticons, start + 1);
+                emoticons[i] = originalPrice;
+                visited[i] = 0;
             }
         }
     }
