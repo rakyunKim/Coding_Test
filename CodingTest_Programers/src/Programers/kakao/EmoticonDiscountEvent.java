@@ -7,7 +7,6 @@ public class EmoticonDiscountEvent {
     static int maxSubscriber = 0;
     static int maxSales = 0;
 //    static Stack<Integer> visited;
-    static int[] visited;
     static int[] emoticonsDiscountRate;
     public static void main(String[] args) throws IOException {
         // 먼저 유저의 희망 할인률을 내림차순 정렬한다.
@@ -46,8 +45,6 @@ public class EmoticonDiscountEvent {
     public static int[] solution(int[][] users, int[] emoticons) {
         Arrays.sort(users, Comparator.comparingInt(a -> -a[0]));
 
-//        visited = new Stack<>();
-        visited = new int[emoticons.length];
         emoticonsDiscountRate = new int[emoticons.length];
 
         bruteForce(users, emoticons, 0);
@@ -70,33 +67,31 @@ public class EmoticonDiscountEvent {
         else
         {
             for (int i = 10; i <= 40; i += 10) {
-                visited[i] = 1;
-                int originalPrice = emoticons[i];
-                emoticonsDiscountRate[i] = j * 10;
-                emoticons[i] =  (int)(emoticons[i] * ((10 - j) * 0.1));
+                emoticonsDiscountRate[start] = i;
                 bruteForce(users, emoticons, start + 1);
-                emoticons[i] = originalPrice;
-                visited[i] = 0;
             }
         }
     }
 
-    private static int[] calculateSubscriber(int[][] users, int[] discountedEmoticons) {
+    private static int[] calculateSubscriber(int[][] users, int[] emoticons) {
         int subscriber = 0;
         int sales = 0;
-        for (int i = 0 ; i < users.length; i++) {
+
+        for (int[] user : users) {
+            int minDiscount = user[0];
+            int maxPrice = user[1];
             int totalPrice = 0;
-            for (int j = 0; j < discountedEmoticons.length; j++) {
-                if (emoticonsDiscountRate[j] >= users[i][0]) {
-                    totalPrice += discountedEmoticons[j];
+
+            for (int i = 0; i < emoticons.length; i++) {
+                if (emoticonsDiscountRate[i] >= minDiscount) {
+                    totalPrice += (emoticons[i]/100) * (100 - emoticonsDiscountRate[i]);
                 }
             }
 
-            if (totalPrice >= users[i][1]) subscriber++;
+            if (totalPrice >= maxPrice) subscriber++;
             else sales += totalPrice;
         }
 
         return new int[]{subscriber, sales};
     }
-
 }
