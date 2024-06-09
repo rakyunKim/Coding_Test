@@ -54,15 +54,7 @@ public class EmoticonDiscountEvent {
 
     private static void bruteForce(int[][] users, int[] emoticons, int start) {
         if (start == emoticons.length) {
-            int[] subscriberAndSales = calculateSubscriber(users, emoticons);
-
-            if (maxSubscriber < subscriberAndSales[0]) {
-                maxSubscriber = subscriberAndSales[0];
-                maxSales = subscriberAndSales[1];
-            }
-            else if (maxSubscriber == subscriberAndSales[0]) {
-                maxSales = Math.max(maxSales, subscriberAndSales[1]);
-            }
+            calculateSubscriberAndSales(users, emoticons);
         }
         else
         {
@@ -73,7 +65,7 @@ public class EmoticonDiscountEvent {
         }
     }
 
-    private static int[] calculateSubscriber(int[][] users, int[] emoticons) {
+    private static void calculateSubscriberAndSales(int[][] users, int[] emoticons) {
         int subscriber = 0;
         int sales = 0;
 
@@ -92,6 +84,16 @@ public class EmoticonDiscountEvent {
             else sales += totalPrice;
         }
 
-        return new int[]{subscriber, sales};
+        compareWithMax(new int[]{subscriber, sales});
+    }
+
+    private static void compareWithMax(int[] subscriberAndSales) {
+        if (subscriberAndSales[0] > maxSubscriber) {
+            maxSubscriber = subscriberAndSales[0];
+            maxSales = subscriberAndSales[1];
+        }
+        else if (maxSubscriber == subscriberAndSales[0]) {
+            maxSales = Math.max(maxSales, subscriberAndSales[1]);
+        }
     }
 }
