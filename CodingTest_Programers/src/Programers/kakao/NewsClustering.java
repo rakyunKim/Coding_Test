@@ -29,11 +29,9 @@ public class NewsClustering {
         filterAlphabets(str1, str1WithOnlyLetter);
         filterAlphabets(str2, str2WithOnlyLetter);
 
-        int intersectionCount = getIntersectionCount(str1WithOnlyLetter, str2WithOnlyLetter);
-        int unionCount = getUnionCount(str1WithOnlyLetter, str2WithOnlyLetter);
+        double jaccardSimilarity = getJaccardSimilarity(str1WithOnlyLetter, str2WithOnlyLetter);
 
-
-        return getJaccardSimilarity(intersectionCount, unionCount);
+        return (int) Math.floor(jaccardSimilarity * 65536);
     }
 
     public static void filterAlphabets(String str,  Queue<String> strWithOnlyLetter) {
@@ -51,33 +49,9 @@ public class NewsClustering {
         }
     }
 
-    private static int getIntersectionCount(Queue<String> subset1, Queue<String> subset2) {
-        int result = 0;
-        int subset1Size = subset1.size();
-        Queue<String> subset2Copy = new LinkedList<>(subset2);
-
-        for (int i = 0; i < subset1Size; i++) {
-            int subset2Size = subset2Copy.size();
-            String str1 = subset1.poll();
-
-            while (subset2Size > 0) {
-                String str2 = subset2Copy.poll();
-                if (str1.equalsIgnoreCase(str2)) {
-                    result++;
-                    break;
-                }
-
-                subset2Copy.add(str2);
-                subset2Size--;
-            }
-            subset1.add(str1);
-        }
-
-        return result;
-    }
-
-    private static int getUnionCount(Queue<String> subset1, Queue<String> subset2) {
-        List<String> union = new LinkedList<>();
+    private static double getJaccardSimilarity(Queue<String> subset1, Queue<String> subset2) {
+        int unionCount = 0;
+        int intersectionCount = 0;
         int subset1Size = subset1.size();
 
         for (int i = 0; i < subset1Size; i++) {
@@ -87,9 +61,11 @@ public class NewsClustering {
 
             while (subset2Size > 0) {
                 String str2 = subset2.poll();
+
                 if (str1.equalsIgnoreCase(str2)) {
-                    union.add(str1);
+                    unionCount++;
                     isAlreadyAdd = true;
+                    intersectionCount++;
                     break;
                 }
 
@@ -97,17 +73,12 @@ public class NewsClustering {
                 subset2Size--;
             }
 
-            if (!isAlreadyAdd) union.add(str1);
+            if (!isAlreadyAdd) unionCount++;
         }
 
-        union.addAll(subset2);
+        unionCount += subset2.size();
 
-        return union.size();
-    }
-
-    private static int getJaccardSimilarity(int intersectionCount, int unionCount) {
-        if (intersectionCount == 0 && unionCount == 0) return 65536;
-
-        return (int) Math.floor(((double) intersectionCount / unionCount) * 65536);
+        if (intersectionCount == 0 && unionCount == 0) return 1;
+        return (double) intersectionCount / unionCount;
     }
 }
