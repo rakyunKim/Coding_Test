@@ -20,7 +20,6 @@ public class LibrarySeatReservation {
         Comparator<int[]> comparator = (a, b) -> a[1] - b[1];
         List<int[]> time = new ArrayList<>();
 
-
         for (int i = 0; i < N; i++) {
             time.add(new int[]{s[i], e[i]});
         }
@@ -33,26 +32,31 @@ public class LibrarySeatReservation {
     }
 
     public static void getMaxStudentCount(List<int[]> time, int prevEndTime, int nextIndex, int currentCount) {
-
         boolean isChanged = false;
+
         for (int i = nextIndex; i < time.size(); i++) {
             int[] next = time.get(i);
 
             if (next[0] >= prevEndTime) {
                 isChanged = true;
+
                 picked.add(time.get(i));
+
                 getMaxStudentCount(time, next[1], i + 1, currentCount + 1);
+
                 picked.pop();
             }
         }
 
         if (!isChanged) {
             List<int[]> copy = new ArrayList<>();
+
             for (int[] ele : time) {
                 if (!picked.contains(ele)) copy.add(ele);
             }
 
             int secondCount = getSecondSeatMaxCount(copy);
+
             answer = Math.max(answer, secondCount + currentCount);
         }
     }
