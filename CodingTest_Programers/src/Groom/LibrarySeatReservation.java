@@ -60,6 +60,7 @@ public class LibrarySeatReservation {
         for (int[] next : copy) {
             if (next[0] >= prevEndTime) {
                 prevEndTime = next[1];
+
                 result++;
             }
         }
