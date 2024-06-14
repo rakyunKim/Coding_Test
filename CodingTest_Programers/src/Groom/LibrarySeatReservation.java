@@ -4,18 +4,7 @@ import java.util.*;
 public class LibrarySeatReservation {
     static int answer = 0;
     static Stack<int[]> picked = new Stack<>();
-    public static void main(String[] args) throws Exception {
-        Scanner scan = new Scanner(System.in);
-        int s[] = new int[1000];
-        int e[] = new int[1000];
-        int N;
-        N = scan.nextInt();
-        for(int i = 0; i < N; i++)
-            s[i] = scan.nextInt();
-        for(int i = 0; i < N; i++)
-            e[i] = scan.nextInt();
-        System.out.print(solution(s, e, N));
-    }
+
     public static int solution(int[] s, int[]e, int N){
         Comparator<int[]> comparator = (a, b) -> a[1] - b[1];
         List<int[]> time = new ArrayList<>();
@@ -25,8 +14,10 @@ public class LibrarySeatReservation {
         }
 
         time.sort(comparator);
+        int[] min = time.get(0);
+        time.remove(0);
 
-        getMaxStudentCount(time, 0, 0, 0);
+        getMaxStudentCount(time, min[1], 0, 1);
 
         return answer;
     }
@@ -74,5 +65,18 @@ public class LibrarySeatReservation {
         }
 
         return result;
+    }
+
+    public static void main(String[] args) throws Exception {
+        Scanner scan = new Scanner(System.in);
+        int s[] = new int[1000];
+        int e[] = new int[1000];
+        int N;
+        N = scan.nextInt();
+        for(int i = 0; i < N; i++)
+            s[i] = scan.nextInt();
+        for(int i = 0; i < N; i++)
+            e[i] = scan.nextInt();
+        System.out.print(solution(s, e, N));
     }
 }
