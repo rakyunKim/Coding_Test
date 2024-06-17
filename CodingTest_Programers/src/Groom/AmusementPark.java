@@ -6,6 +6,14 @@ import java.util.*;
 
 public class AmusementPark {
     public static final Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws Exception {
+        int caseSize = scanner.nextInt();
+
+        for (int caseIndex = 1; caseIndex <= caseSize; caseIndex += 1) {
+            testCase(caseIndex);
+        }
+    }
+
 
     public static void testCase(int caseIndex) {
         int N = scanner.nextInt();  // 지도의 크기
@@ -18,35 +26,35 @@ public class AmusementPark {
             }
         }
 
-        int currentWasteCount = 0;
-        int[][] kMap = new int[K][K];
-
-        for (int y = 0; y < K; y++) {
-            for (int x = 0; x < K; x++) {
-                if (wastes[y][x] == 1) currentWasteCount++;
-                kMap[y][x] = wastes[y][x];
-            }
-        }
-
-        for (int i = 0; i < N; i ++) {
-            for (int j = K - 1; j < N; j ++) {
-
-
-            }
-        }
-
+        int yPoint = 0;
+        int xPoint = K;
         int answer = Integer.MAX_VALUE;
+
+        while (yPoint <= N - K) {
+            int currentWasteCount = 0;
+            if (xPoint <= N) {
+                for (int i = yPoint; i < K + yPoint; i ++) {
+                    for (int j = xPoint - K; j < xPoint; j ++) {
+                        if (wastes[i][j] == 1) {
+                            currentWasteCount++;
+                        }
+                    }
+                }
+
+                answer = Math.min(currentWasteCount, answer);
+                xPoint++;
+            }
+            else {
+                yPoint++;
+                xPoint = K;
+            }
+
+        }
+
 
 
         System.out.println(answer);
     }
 
-    public static void main(String[] args) throws Exception {
-        int caseSize = scanner.nextInt();
 
-        for (int caseIndex = 1; caseIndex <= caseSize; caseIndex += 1) {
-            testCase(caseIndex);
-        }
-
-    }
 }
