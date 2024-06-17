@@ -1,6 +1,5 @@
 package Groom;
 
-import java.io.*;
 import java.lang.*;
 import java.util.*;
 
@@ -50,8 +49,6 @@ public class AmusementPark {
             }
 
         }
-
-
 
         System.out.println(answer);
     }
