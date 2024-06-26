@@ -1,6 +1,6 @@
 package Baekjoon.구현;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Number12100 {
     static int mapSize;
@@ -22,9 +22,9 @@ public class Number12100 {
             }
         }
 
-        start(map, 0);
+        bruteForce(map, 0);
 
-
+        System.out.println(MAX);
 
 //        for (int i = 0; i < mapSize; i++) {
 //            for (int j = 0; j < mapSize; j++) {
@@ -34,62 +34,182 @@ public class Number12100 {
 //        }
     }
 
-    private static void start(int[][] map, int count) {
-        if (count < 5) {
-            for (int i = 0; i < 4; i++) {
-                int[][] copy = map;
-                move(copy, i);
-                start(copy, count + 1);
-            }
+    private static void bruteForce(int[][] map, int count) {
+        if (count == 5) {
+            return;
         }
+
+        int[][] copyMap = Arrays.stream(map)
+                        .map(int[]::clone)
+                        .toArray(int[][]::new);
+        Queue<Integer> queue = new LinkedList<>();
+        moveLeft(copyMap, queue);
+        bruteForce(copyMap, count + 1);
+
+        copyMap = Arrays.stream(map)
+                .map(int[]::clone)
+                .toArray(int[][]::new);
+        queue = new LinkedList<>();
+        moveRight(copyMap, queue);
+        bruteForce(copyMap, count + 1);
+
+        copyMap = Arrays.stream(map)
+                .map(int[]::clone)
+                .toArray(int[][]::new);
+        queue = new LinkedList<>();
+        moveOver(copyMap, queue);
+        bruteForce(copyMap, count + 1);
+
+        copyMap = Arrays.stream(map)
+                .map(int[]::clone)
+                .toArray(int[][]::new);
+        queue = new LinkedList<>();
+        moveUnder(copyMap, queue);
+        bruteForce(copyMap, count + 1);
     }
 
-    private static void move(int[][] map, int way) {
-        /* 0 == 위 || 1 == 아래 || 2 == 왼쪽 || 3 == 오른쪽 */
-        if (way == 0) {
-            for (int x = 0; x < mapSize; x++) {
-                int targetPtr = 0;
-                for (int y = 0; y < mapSize; y++) {
-                    int value = map[y][x];
-                    if (y + 1 < mapSize && map[y][x] == map[y + 1][x]) {
-                        map[y][x] = 0;
-                        map[targetPtr++][x] = value * 2;
-                        map[y + 1][x] = 0;
-                        y ++;
-                    }
-                    else if (y + 1 < mapSize && map[y + 1][x] == 0) {
-                        int nextPtr = y + 1;
-                        while(nextPtr < mapSize) {
-                            if (map[nextPtr + 1][x] == 0) nextPtr++;
-                            else {
-                                if (map[y][x] == map[nextPtr + 1][x]) {
-                                    map[y][x] = 0;
-                                    map[targetPtr++][x] = value * 2;
-                                    map[nextPtr + 1][x] = 0;
-                                    y = nextPtr + 1;
-                                }
-                                else {
-
-                                }
-                            }
-                        }
-                    }
-                    else{
-                        int prevPtr = y;
-                        while(prevPtr > 0 && map[prevPtr - 1][x] == 0) {
-                            map[prevPtr][x] = 0;
-                            prevPtr -= 1;
-                            map[prevPtr][x] = value;
-                        }
-                        targetPtr++;
-                    }
+    private static void moveUnder(int[][] map, Queue<Integer> queue) {
+        for (int x = 0; x < mapSize; x++) {
+            for (int y = mapSize - 1; y >= 0; y--) {
+                if (map[y][x] != 0) {
+                    queue.add(map[y][x]);
+                    map[y][x] = 0;
                 }
             }
 
-            MAX = Math.max(MAX, getMaxValue(map));
+            int currentPtr = mapSize - 1;
+            int first = 0;
+            int second = 0;
+            while (queue.size() > 1) {
+                first = queue.poll();
+                second = queue.peek();
+
+                if (first == second) {
+                    queue.poll();
+                    map[currentPtr][x] = first + second;
+                    currentPtr--;
+                }
+                else {
+                    map[currentPtr][x] = first;
+                    currentPtr--;
+                }
+            }
+
+            if (!queue.isEmpty()) {
+                map[currentPtr][x] = queue.poll();
+            }
         }
 
+//        printMap(map, 4);
+        MAX = Math.max(MAX, getMaxValue(map));
+    }
 
+    private static void moveOver(int[][] map, Queue<Integer> queue) {
+        for (int x = 0; x < mapSize; x++) {
+            for (int y = 0; y < mapSize; y++) {
+                if (map[y][x] != 0) {
+                    queue.add(map[y][x]);
+                    map[y][x] = 0;
+                }
+            }
+
+            int currentPtr = 0;
+            int first = 0;
+            int second = 0;
+            while (queue.size() > 1) {
+                first = queue.poll();
+                second = queue.peek();
+
+                if (first == second) {
+                    queue.poll();
+                    map[currentPtr][x] = first + second;
+                    currentPtr++;
+                }
+                else {
+                    map[currentPtr][x] = first;
+                    currentPtr++;
+                }
+            }
+
+            if (!queue.isEmpty()) {
+                map[currentPtr][x] = queue.poll();
+            }
+        }
+
+//        printMap(map, 3);
+        MAX = Math.max(MAX, getMaxValue(map));
+    }
+
+    private static void moveRight(int[][] map, Queue<Integer> queue) {
+        for (int y = 0; y < mapSize; y++) {
+            for (int x = mapSize - 1; x >= 0; x--) {
+                if (map[y][x] != 0) {
+                    queue.add(map[y][x]);
+                    map[y][x] = 0;
+                }
+            }
+
+            int currentPtr = mapSize - 1;
+            int first = 0;
+            int second = 0;
+            while (queue.size() > 1) {
+                first = queue.poll();
+                second = queue.peek();
+
+                if (first == second) {
+                    queue.poll();
+                    map[y][currentPtr] = first + second;
+                    currentPtr--;
+                }
+                else {
+                    map[y][currentPtr] = first;
+                    currentPtr--;
+                }
+            }
+
+            if (!queue.isEmpty()) {
+                map[y][currentPtr] = queue.poll();
+            }
+        }
+
+//        printMap(map, 2);
+        MAX = Math.max(MAX, getMaxValue(map));
+    }
+
+    private static void moveLeft(int[][] map, Queue<Integer> queue) {
+        for (int y = 0; y < mapSize; y++) {
+            for (int x = 0; x < mapSize; x++) {
+                if (map[y][x] != 0) {
+                    queue.add(map[y][x]);
+                    map[y][x] = 0;
+                }
+            }
+
+            int currentPtr = 0;
+            int first = 0;
+            int second = 0;
+            while (queue.size() > 1) {
+                first = queue.poll();
+                second = queue.peek();
+
+                if (first == second) {
+                    queue.poll();
+                    map[y][currentPtr] = first + second;
+                    currentPtr++;
+                }
+                else {
+                    map[y][currentPtr] = first;
+                    currentPtr++;
+                }
+            }
+
+            if (!queue.isEmpty()) {
+                map[y][currentPtr] = queue.poll();
+            }
+        }
+
+//        printMap(map, 1);
+        MAX = Math.max(MAX, getMaxValue(map));
     }
 
     private static int getMaxValue(int[][] map) {
@@ -102,6 +222,24 @@ public class Number12100 {
 
         return max;
     }
+
+
+
+
+
+//    private static void printMap(int[][] map, int moveWay) {
+//        if (moveWay == 1) System.out.print("================왼쪽으로 이동===============\n");
+//        if (moveWay == 2) System.out.print("================오른쪽으로 이동===============\n");
+//        if (moveWay == 3) System.out.print("================위쪽으로 이동===============\n");
+//        if (moveWay == 4) System.out.print("================아래쪽으로 이동===============\n");
+//
+//        for (int i = 0 ; i < mapSize; i++) {
+//            for (int j = 0; j < mapSize; j++) {
+//                System.out.print(map[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
+//    }
 }
 
 
