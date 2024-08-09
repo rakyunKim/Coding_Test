@@ -83,9 +83,6 @@ public class CaveExploration {
 
 
 
-
-
-
         boolean answer = true;
         return answer;
     }
